@@ -6,5 +6,6 @@ Purpose:
 TODOs:  
 -Automate the web scraping process  
 -Add more scrapers for other websites  
+-Finish AutoNation scraper  
 -Possibly move away from saving data to csv files since they can grow to be very large  
 -Improve/fix bugs in GUI  
