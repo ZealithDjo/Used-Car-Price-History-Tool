@@ -108,7 +108,7 @@ def click(e):
     line2 = FigureCanvasTkAgg(figure2, root)
     line2.get_tk_widget().grid(row=1, column=3, rowspan=10,)
     df3 = df3[['Date: ', 'Price: ']].groupby('Date: ').mean()
-    df3.plot(kind='line', legend=False, ax=ax2, color='orange', marker='o', fontsize=10)
+    df3.plot(kind='line', legend=False, ax=ax2, color='orange', fontsize=10)
     ax2.set_title(str(vehicle_name) + " (" + str(mileage_range) + " miles)")
 
     # displayLabel.config(text = str(df3))
