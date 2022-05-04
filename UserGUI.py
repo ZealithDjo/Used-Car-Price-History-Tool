@@ -31,11 +31,11 @@ def merge_name(df):
 
 # fixes initial data into something easy to work with
 def fix_initial_data(df):
-    df = df.drop(columns=['Unnamed: 0', 'Unnamed: 0.1'])
-    # df = df.dropna(subset=["Date: "])
-    # df = df[df['Date: '] != '']
+    try:
+        df = df.drop(columns=['Unnamed: 0', 'Unnamed: 0.1'])
+    except:
+        print("No unnamed cols found")
     df = df[df['Date: '].notna()]
-    # df = df[df['Price: '].str.contains(',')]
     df = df.replace(',', '', regex=True)
     df['Mileage: '] = pd.to_numeric(df['Mileage: '].str.split(" ", 1).str[0], downcast="signed")
     df["Price: "] = pd.to_numeric(df["Price: "], downcast="signed")
@@ -130,7 +130,7 @@ if __name__ == '__main__':
     # make Tkinter window
     root = Tk()
     root.title('Used Vehicle Price History Tool')
-    root.geometry("1000x600")
+    root.geometry("1000x500")
 
     # labels
     label1 = Label(root, text="Vehicle Search", font=("Helvetica", 14), fg="grey")
