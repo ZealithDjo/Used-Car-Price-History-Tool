@@ -11,6 +11,6 @@ TODOs:
 -Improve/fix bugs in GUI  
   
 Usage:  
-Run Carvana_Scraper_Multiprocessing.py to gather data  
+Run Carvana_Scraper_Multiprocessing.py to gather data (this will have to be done daily/weekly/etc. to build up data)  
 Run Merge_To_DF.py to combine all produced csv files into 1 csv file  
 Run UserGUI.py to display price history graph  
