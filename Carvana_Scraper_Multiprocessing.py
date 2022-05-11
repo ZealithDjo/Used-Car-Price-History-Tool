@@ -78,9 +78,7 @@ def get_num_pages(url):
             print("Error in getting number of pages, retrying...")
 
 
-# -----------------------------------------------------------------------------------
-# main
-def test2(page, num_pages):
+def scrape(page, num_pages):
     from datetime import date
 
     vehicleList = []
@@ -145,57 +143,25 @@ if __name__ == '__main__':
     print("Total pages to scrape: " + str(totalpgs))
     print("Starting Processes...")
 
-    # initialize processes
-    proc1 = mp.Process(target=test2, args=(start, finish))
-    print("starting process 1: " + str(start) + "-" + str(finish))
-    start = finish + 1
-    finish = finish + difference
-    proc2 = mp.Process(target=test2, args=(start, finish))
-    print("starting process 2: " + str(start) + "-" + str(finish))  # 586 - 1171
-    start = finish + 1
-    finish = finish + difference
-    proc3 = mp.Process(target=test2, args=(start, finish))
-    print("starting process 3: " + str(start) + "-" + str(finish))
-    start = finish + 1
-    finish = finish + difference
-    proc4 = mp.Process(target=test2, args=(start, finish))
-    print("starting process 4: " + str(start) + "-" + str(finish))
-    start = finish + 1
-    finish = finish + difference
-    proc5 = mp.Process(target=test2, args=(start, finish))
-    print("starting process 5: " + str(start) + "-" + str(finish))
-    start = finish + 1
-    finish = finish + difference
-    proc6 = mp.Process(target=test2, args=(start, finish))
-    print("starting process 6: " + str(start) + "-" + str(finish))
-    start = finish + 1
-    finish = finish + difference
-    proc7 = mp.Process(target=test2, args=(start, finish))
-    print("starting process 7: " + str(start) + "-" + str(finish))
-    start = finish + 1
-    finish = finish + difference
-    proc8 = mp.Process(target=test2, args=(start, finish))
-    print("starting process 8: " + str(start) + "-" + str(finish))
+    proclist = []
+
+    # initialize process for each core
+    for num in range(0,cores):
+        num = mp.Process(target=scrape, args=(start, finish))
+        proclist.append(num)
+        print("starting process " + str(num) + ": " + str(start) + "-" + str(finish))
+        start = finish + 1
+        finish = finish + difference
 
     # start processes
-    proc1.start()
-    proc2.start()
-    proc3.start()
-    proc4.start()
-    proc5.start()
-    proc6.start()
-    proc7.start()
-    proc8.start()
+    print(proclist)
+    for i in proclist:
+        i.start()
 
-    # wait until processes finish
-    proc1.join()
-    proc2.join()
-    proc3.join()
-    proc4.join()
-    proc5.join()
-    proc6.join()
-    proc7.join()
-    proc8.join()
+    # wait for processes to complete
+    for i in proclist:
+        i.join()
+
 
     # Processes finished
     print("All Processes Completed!")
